@@ -12,12 +12,14 @@ def grep(pattern, flags, files):
     match_count = 0
     for i in range(len(files)):
         with open(files[i], "r") as stdin:
-            lines = stdin.read().splitlines()
+            lines = stdin.readlines()
             for j in range(len(lines)):
-                pat, txt = pattern, lines[j]
+                pat, txt = pattern, lines[j].strip()
                 if "i" in flags:
                     pat, txt = pat.lower(), txt.lower()
                 match = 1 if pat in txt else 0
+                if "x" in flags:
+                    match = 1 if pat == txt else 0
                 match_count += match
                 data.append({"match": match, "line": lines[j], "line_index": j+1, "file_index": i})
     data = sorted(data, key=lambda item: (item["match"], item["file_index"], item["line_index"]))
@@ -39,21 +41,22 @@ def grep(pattern, flags, files):
             if file != target_files[-1]:
                 target_files.append(file)
         else:
+            file = "" if len(files) == 1 else files[item["file_index"]]+":"
             if "n" in flags:
-                target_lines_indexed.append(str(item["line_index"]) + ":" + item["line"])
+                target_lines_indexed.append(file + str(item["line_index"]) + ":" + item["line"])
             else:
-                target_lines.append(item["line"])
+                target_lines.append(file + item["line"])
 
     if target_lines:
-        return "\n".join(target_lines)
+        return "".join(target_lines)
     elif target_files and "l" in flags:
-        return "\n".join(target_files)
+        return "\n".join(target_files) + "\n"
     else:
-        return "\n".join(target_lines_indexed)
+        return "".join(target_lines_indexed)
 
 if __name__ == "__main__":
-    flags   = sys.argv[1]
-    pattern = sys.argv[2]
+    pattern = sys.argv[1]
+    flags   = sys.argv[2]
     files   = sys.argv[3:]
 
     print(grep(pattern, flags, files))
