@@ -29,8 +29,8 @@ def grep(pattern, flags, files):
                 match_count += match
                 data.append({"match": match, "line": lines[j], "line_index": j+1, "file_index": i})
 
-    # sort lines by match status, parent-file index, and line-index (in that order of priority)
-    data = sorted(data, key=lambda item: (item["match"], item["file_index"], item["line_index"]))
+    # sort lines by match status
+    data = sorted(data, key=lambda item: (item["match"]))
 
     # find the target range/matching lines or mismatching lines
     target_range = [0, len(data)]
