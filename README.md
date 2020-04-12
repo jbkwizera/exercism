@@ -1,4 +1,4 @@
-# exercism
+# Exercism
 Exercism tracks
 
 Python
