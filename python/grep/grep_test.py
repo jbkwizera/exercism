@@ -68,7 +68,7 @@ class GrepTest(unittest.TestCase):
         self.assertMultiLineEqual(
             grep("Forbidden", "-l", ["paradise-lost.txt"]), "paradise-lost.txt\n"
         )
-    """
+
     def test_one_file_one_match_match_entire_lines_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep(
@@ -76,7 +76,7 @@ class GrepTest(unittest.TestCase):
             ),
             "With loss of Eden, till one greater Man\n",
         )
-
+    """
     def test_one_file_one_match_multiple_flags(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("OF ATREUS, Agamemnon, KIng of MEN.", "-n -i -x", ["iliad.txt"]),
