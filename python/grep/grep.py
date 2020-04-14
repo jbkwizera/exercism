@@ -9,6 +9,8 @@ def grep(pattern, flags, files):
             if "i" in flags:
                 pat, txt = pat.lower(), txt.lower()
             if pat in txt:
+                if "l" in flags:
+                    return files[0] + "\n"
                 if "n" in flags:
                     return str(i+1) + ":" + lines[i]
                 else:
