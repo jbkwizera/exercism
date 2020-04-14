@@ -5,7 +5,10 @@ def grep(pattern, flags, files):
     with open(files[0], "r") as file:
         lines = file.readlines()
         for i in range(len(lines)):
-            if pattern in lines[i]:
+            pat, txt = pattern, lines[i]
+            if "i" in flags:
+                pat, txt = pat.lower(), txt.lower()
+            if pat in txt:
                 if "n" in flags:
                     return str(i+1) + ":" + lines[i]
                 else:

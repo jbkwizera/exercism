@@ -57,13 +57,13 @@ class GrepTest(unittest.TestCase):
             grep("Forbidden", "-n", ["paradise-lost.txt"]),
             "2:Of that Forbidden Tree, whose mortal tast\n",
         )
-    """
+
     def test_one_file_one_match_case_insensitive_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("FORBIDDEN", "-i", ["paradise-lost.txt"]),
             "Of that Forbidden Tree, whose mortal tast\n",
         )
-
+    """
     def test_one_file_one_match_print_file_names_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("Forbidden", "-l", ["paradise-lost.txt"]), "paradise-lost.txt\n"
