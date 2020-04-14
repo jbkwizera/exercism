@@ -122,7 +122,7 @@ class GrepTest(unittest.TestCase):
             "Achilles sing, O Goddess! Peleus' son;\n"
             "The noble Chief Achilles from the son\n",
         )
-    """
+
     def test_one_file_several_matches_inverted_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("Of", "-v", ["paradise-lost.txt"]),
@@ -132,7 +132,7 @@ class GrepTest(unittest.TestCase):
             "Sing Heav'nly Muse, that on the secret top\n"
             "That Shepherd, who first taught the chosen Seed\n",
         )
-
+    """
     def test_one_file_no_matches_various_flags(self, mock_file, mock_open):
         self.assertMultiLineEqual(grep("Gandalf", "-n -l -x -i", ["iliad.txt"]), "")
 
