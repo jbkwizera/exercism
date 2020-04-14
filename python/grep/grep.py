@@ -1,7 +1,7 @@
 import sys
 import re
 def grep(pattern, flags, files):
-
+    matches = []
     with open(files[0], "r") as file:
         lines = file.readlines()
         for i in range(len(lines)):
@@ -19,10 +19,10 @@ def grep(pattern, flags, files):
                 if "l" in flags:
                     return files[0] + "\n"
                 if "n" in flags:
-                    return str(i+1) + ":" + lines[i]
+                    matches.append(str(i+1) + ":" + lines[i])
                 else:
-                    return lines[i]
-    return ""
+                    matches.append(lines[i])
+    return "".join(matches)
 
     """
     # raise exception on illegal flags

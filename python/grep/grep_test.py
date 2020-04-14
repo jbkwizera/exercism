@@ -76,7 +76,7 @@ class GrepTest(unittest.TestCase):
             ),
             "With loss of Eden, till one greater Man\n",
         )
-    """
+
     def test_one_file_one_match_multiple_flags(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("OF ATREUS, Agamemnon, KIng of MEN.", "-n -i -x", ["iliad.txt"]),
@@ -112,7 +112,7 @@ class GrepTest(unittest.TestCase):
             "Achilles sing, O Goddess! Peleus' son;\n"
             "The noble Chief Achilles from the son\n",
         )
-
+    """
     def test_one_file_several_matches_inverted_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("Of", "-v", ["paradise-lost.txt"]),
