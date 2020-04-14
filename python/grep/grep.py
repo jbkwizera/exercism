@@ -6,7 +6,10 @@ def grep(pattern, flags, files):
         lines = file.readlines()
         for i in range(len(lines)):
             if pattern in lines[i]:
-                return lines[i]
+                if "n" in flags:
+                    return str(i+1) + ":" + lines[i]
+                else:
+                    return lines[i]
     return ""
     """
     # raise exception on illegal flags

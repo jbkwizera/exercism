@@ -52,13 +52,12 @@ class GrepTest(unittest.TestCase):
             grep("Agamemnon", "", ["iliad.txt"]), "Of Atreus, Agamemnon, King of men.\n"
         )
 
-    """
     def test_one_file_one_match_print_line_numbers_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("Forbidden", "-n", ["paradise-lost.txt"]),
             "2:Of that Forbidden Tree, whose mortal tast\n",
         )
-
+    """
     def test_one_file_one_match_case_insensitive_flag(self, mock_file, mock_open):
         self.assertMultiLineEqual(
             grep("FORBIDDEN", "-i", ["paradise-lost.txt"]),
