@@ -1,6 +1,6 @@
 import unittest
 
-from grep import grep
+from grep import grep, Record
 
 # Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
 import io
@@ -46,6 +46,16 @@ def open_mock(fname, *args, **kwargs):
 @mock.patch("grep.open", name="open", side_effect=open_mock, create=True)
 @mock.patch("io.StringIO", name="StringIO", wraps=io.StringIO)
 class GrepTest(unittest.TestCase):
+
+    # Test Record class
+    def test_record(self, mock_file, mock_open):
+        line_txt = "Achilles sing, O Goddess! Peleus' son;"
+        record = Record(True, line_txt, line_number=1, file_index=0)
+        self.assertTrue(
+            record.is_match and record.line == line_txt and \
+            record.line_number == 1 and record.file_index == 0
+        )
+
     # Test grepping a single file
     def test_one_file_one_match_no_flags(self, mock_file, mock_open):
         self.assertMultiLineEqual(
