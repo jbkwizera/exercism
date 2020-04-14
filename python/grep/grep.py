@@ -2,6 +2,13 @@ import sys
 import re
 def grep(pattern, flags, files):
 
+    with open(files[0], "r") as file:
+        lines = file.readlines()
+        for i in range(len(lines)):
+            if pattern in lines[i]:
+                return lines[i]
+    return ""
+    """
     # raise exception on illegal flags
     allowed_flags = "nlivx"
     flags = "".join(re.split("[^a-zA-Z]", flags)).lower()
@@ -68,12 +75,4 @@ def grep(pattern, flags, files):
         return "\n".join(target_files) + "\n"
     else:
         return "".join(target_lines_indexed)
-
-if __name__ == "__main__":
-    # arguments from command line
-
-    pattern = sys.argv[1]
-    flags   = sys.argv[2]
-    files   = sys.argv[3:]
-
-    print(grep(pattern, flags, files))
+    """
