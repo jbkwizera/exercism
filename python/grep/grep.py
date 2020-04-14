@@ -1,5 +1,13 @@
 import sys
 import re
+
+class Record:
+    def __init__(self, is_match, line, line_number, file_index):
+        self.is_match = is_match
+        self.line = line
+        self.line_number= line_number
+        self.file_index = file_index
+
 def grep(pattern, flags, files):
     matches = []
     with open(files[0], "r") as file:
