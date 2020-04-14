@@ -132,7 +132,7 @@ class GrepTest(unittest.TestCase):
             "Sing Heav'nly Muse, that on the secret top\n"
             "That Shepherd, who first taught the chosen Seed\n",
         )
-    """
+    
     def test_one_file_no_matches_various_flags(self, mock_file, mock_open):
         self.assertMultiLineEqual(grep("Gandalf", "-n -l -x -i", ["iliad.txt"]), "")
 
@@ -298,6 +298,6 @@ class GrepTest(unittest.TestCase):
             "paradise-lost.txt:Of Oreb, or of Sinai, didst inspire\n"
             "paradise-lost.txt:That Shepherd, who first taught the chosen Seed\n",
         )
-    """
+
 if __name__ == "__main__":
     unittest.main()
