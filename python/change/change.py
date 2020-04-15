@@ -2,13 +2,21 @@ import sys
 sys.setrecursionlimit(1500)
 
 def find_fewest_coins(coins, target):
-    memoize = dict()
+    if target < 0:
+        raise ValueError("Change must be nonnegative.")
+    elif target and target < coins[0]:
+        raise ValueError("Change must be at least the smallest coin.")
     if target == 0:
         return []
-    return find_fewest_coins_helper(coins, target, memoize)
+
+    memoize= dict()
+    result = find_fewest_coins_helper(coins, target, memoize)
+    if result[0] == 0:
+        raise ValueError("Change cannot be obtained.")
+    return result
 
 def find_fewest_coins_helper(coins, target, memoize):
-    change = [1]*1000
+    change = [0]*1000
     if target in coins:
         memoize[target] = [target]
         return [target]
