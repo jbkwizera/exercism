@@ -30,6 +30,7 @@ def grep(pattern, flags, files):
                 records.append(Record(match, lines[i], i+1, j))
 
     records = sorted(records, key=lambda record: record.is_match)
+
     target_range = [0, len(records)]
     if "v" in flags:
         target_range[1] = len(records)-match_count
@@ -39,27 +40,27 @@ def grep(pattern, flags, files):
     if target_range[0] == target_range[1]:
         return ""
 
-    if "l" in flags:
-        target_files = [files[records[target_range[0]].file_index]]
-        for record in records[target_range[0]:target_range[1]]:
+    target_lines = []
+    target_lines_indexed = []
+    target_files = [files[records[target_range[0]].file_index]]
+    for record in records[target_range[0]:target_range[1]]:
+        if "l" in flags:
             file = files[record.file_index]
             if file != target_files[-1]:
                 target_files.append(file)
-        return "\n".join(target_files) + "\n"
-    else:
-        target_lines = []
-        target_lines_indexed = []
-        for record in records[target_range[0]:target_range[1]]:
+        else:
             parent_file = "" if len(files) == 1 else files[record.file_index]+":"
             if "n" in flags:
                 target_lines_indexed.append(parent_file+str(record.line_number) + ":" + record.line)
             else:
                 target_lines.append(parent_file+record.line)
 
-        if "n" in flags:
-            return "".join(target_lines_indexed)
-        else:
-            return "".join(target_lines)
+    if "l" in flags:
+        return "\n".join(target_files) + "\n"
+    elif "n" in flags:
+        return "".join(target_lines_indexed)
+    else:
+        return "".join(target_lines)
 
     """
     # raise exception on illegal flags
