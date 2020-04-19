@@ -8,26 +8,30 @@ class Record:
         self.line_number= line_number
         self.file_index = file_index
 
+
 def grep(pattern, flags, files):
     records = []
     match_count = 0
+
+    def process_line(line, line_number, file_index):
+        pat, txt = pattern, line.strip()
+        match = 0
+        res = lines[i]
+        if "i" in flags:
+            pat, txt = pat.lower(), txt.lower()
+        if "x" in flags and pat == txt:
+            match = 1
+        if "x" not in flags and pat in txt:
+            match = 1
+        records.append(Record(match, line, line_number, file_index))
+        return match
+
     for j in range(len(files)):
-        with open(files[j], "r") as file:
-            lines = file.readlines()
-            for i in range(len(lines)):
-                pat, txt = pattern, lines[i].strip()
-                match = 0
-                res = lines[i]
-                if "i" in flags:
-                    pat, txt = pat.lower(), txt.lower()
-                if "x" in flags:
-                    if pat == txt:
-                        match = 1
-                else:
-                    if pat in txt:
-                        match = 1
-                match_count += match
-                records.append(Record(match, lines[i], i+1, j))
+        file = open(files[j], "r")
+        lines = file.readlines()
+        for i in range(len(lines)):
+            match_count += process_line(lines[i], i+1, j)
+        file.close()
 
     records = sorted(records, key=lambda record: record.is_match)
 
@@ -44,16 +48,16 @@ def grep(pattern, flags, files):
     target_lines_indexed = []
     target_files = [files[records[target_range[0]].file_index]]
     for record in records[target_range[0]:target_range[1]]:
-        if "l" in flags:
-            file = files[record.file_index]
-            if file != target_files[-1]:
-                target_files.append(file)
+        curr_file = files[record.file_index]
+        if "l" in flags and curr_file != target_files[-1]:
+            target_files.append(curr_file)
+            continue
+
+        curr_file = "" if len(files) == 1 else curr_file+":"
+        if "n" in flags:
+            target_lines_indexed.append(curr_file+str(record.line_number) + ":" + record.line)
         else:
-            parent_file = "" if len(files) == 1 else files[record.file_index]+":"
-            if "n" in flags:
-                target_lines_indexed.append(parent_file+str(record.line_number) + ":" + record.line)
-            else:
-                target_lines.append(parent_file+record.line)
+            target_lines.append(curr_file+record.line)
 
     if "l" in flags:
         return "\n".join(target_files) + "\n"
