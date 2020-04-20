@@ -1,2 +1,2 @@
 def total(basket):
-    pass
+    return 0
