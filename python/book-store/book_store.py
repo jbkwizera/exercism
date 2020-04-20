@@ -1,2 +1,7 @@
+UNIT_COST = 800
+
 def total(basket):
-    return 0
+    if not basket:
+        return 0
+    else:
+        return UNIT_COST
