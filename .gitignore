@@ -1,3 +1,8 @@
 /**/*.pyc
 /**/.exercism/metadata.json
+<<<<<<< HEAD
 /**/scratch.py
+||||||| merged common ancestors
+=======
+/**/.scratch.py
+>>>>>>> 7c37a0d7822bc74b6cf37e1e9e14365f2fc04357
